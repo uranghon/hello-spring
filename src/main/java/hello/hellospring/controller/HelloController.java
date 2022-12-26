@@ -10,7 +10,7 @@ public class HelloController {
     public String hello(Model model)
     {
         model.addAttribute("data", "메건!!");
-        return "fromis";
+        return "hello";
     }
 
     @GetMapping("fromis")
