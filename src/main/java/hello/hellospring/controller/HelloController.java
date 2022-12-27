@@ -3,6 +3,7 @@ package hello.hellospring.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class HelloController {
@@ -18,5 +19,12 @@ public class HelloController {
     {
         model.addAttribute("data", "하냥!!");
         return "fromis";
+    }
+
+    @GetMapping("hello-mvc")
+    public String helloMvc(@RequestParam("name") String name, Model model) // 외부에서 name을 받음
+    {
+        model.addAttribute("name", name);
+        return "hello-template";
     }
 }
