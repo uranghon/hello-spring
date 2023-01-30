@@ -1,8 +1,8 @@
 package hello.hellospring.repository;
 
 import hello.hellospring.domain.Member;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -19,16 +19,18 @@ public class MemoryMemberRepositoryTest {
     }
 
     @Test
-    public void save(){
+    public void save() {
         Member member = new Member();
         member.setName("spring");
 
         repository.save(member);
 
         Member result = repository.findById(member.getId()).get();
-        //Assertions.assertEquals(member, result);
+        System.out.println("result = " + (result == member));
+        Assertions.assertEquals(member, result);
         //org.assertj.core.api.Assertions.assertThat(member).isEqualTo(result);
         assertThat(result).isEqualTo(member);
+        System.out.println(member.getId());
     }
 
     @Test
@@ -42,24 +44,20 @@ public class MemoryMemberRepositoryTest {
         repository.save(member2);
 
         Member result = repository.findByName("spring1").get();
-        assertThat(result).isEqualTo(member1);
+        System.out.println("result = " + (result == member1));
+//        Assertions.assertEquals(member1, result);
+        //org.assertj.core.api.Assertions.assertThat(member1).isEqualTo(result);
+//        assertThat(result).isEqualTo(member1);
+//        System.out.println(member1.getName() +);
     }
 
     @Test
     public void findById() {
         Member member = new Member();
 
-        member.setId(3L);
-        System.out.println("setId 3 한거 : " + member.getId());
-        member.setName("테스트");
-        repository.save(member);
-        System.out.println("save 후 : " + member.getId());
 
-        member.setId(4L);
-        System.out.println("setId 4 후 : " + member.getId());
-
-        System.out.println(repository.findById(1L).get().getName());
     }
+
     @Test
     public void findAll() {
 //given

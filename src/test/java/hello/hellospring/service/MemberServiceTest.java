@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -81,5 +82,23 @@ class MemberServiceTest {
 
     @Test
     void findOne() {
+    }
+
+    @Test
+    void 회원가입() {
+        Member member = new Member();
+        member.setName("테스트");
+        Long id = memberService.join(member);
+
+        Optional<Member> om = memberService.findOne(id);
+        if(om.isPresent())
+        {
+            assertThat(member.getName()).isEqualTo(om.get().getName());
+            System.out.println("맞네요. " + member.getName() + " = " + om.get().getName());
+        }
+        else
+        {
+            System.out.println("없네요. 실패!");
+        }
     }
 }

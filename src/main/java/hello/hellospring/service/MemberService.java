@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-
-
+import org.springframework.transaction.annotation.Transactional;
+@Transactional
 public class MemberService {
     private final MemberRepository memberRepository;
 
@@ -25,11 +25,21 @@ public class MemberService {
     }*/
 
 
+    /**
+     * 회원가입
+     */
     public Long join(Member member) {
-//        같은 이름이 있는 중복 회원X
-        validateDuplicateMember(member);
-        memberRepository.save(member);
-        return member.getId();
+        long start = System.currentTimeMillis();
+        // 같은 이름이 있는 중복 회원X
+        try {
+            validateDuplicateMember(member);
+            memberRepository.save(member);
+            return member.getId();
+        } finally {
+            long finish = System.currentTimeMillis();
+            long timeMs = finish - start;
+            System.out.println("join " + timeMs + "ms");
+        }
     }
 
     private void validateDuplicateMember(Member member) {
@@ -39,9 +49,22 @@ public class MemberService {
                 });
     }
 
-    /*전체회원조회*/
+    /**
+     *
+     * 전체회원조회
+     */
     public List<Member> findMembers() {
-        return memberRepository.findAll();
+
+        long start = System.currentTimeMillis();
+
+        try {
+            return memberRepository.findAll();
+        } finally {
+            long finish = System.currentTimeMillis();
+            long timeMs = finish - start;
+            System.out.println("findMembers " + timeMs + "ms");
+            //이제 그 뭐냐 AOP 쓰면 필요없..
+        }
     }
 
     public Optional<Member> findOne(Long memberId) {

@@ -25,7 +25,7 @@ public class HelloController {
     @GetMapping("hello-mvc")
     public String helloMvc(@RequestParam("name") String name, Model model) // 외부에서 name을 받음
     {
-        model.addAttribute("name", name);
+        model.addAttribute("name2222", name);
         return "hello-template";
     }
 
@@ -42,6 +42,8 @@ public class HelloController {
         hello.setName(name);
         return hello;
     } // JSON 방식
+
+    //static 클래스로 만들면 클래스 안에서 클래스 또 만들어 쓸 수 있다.
     static class Hello
     {
         private  String name;
